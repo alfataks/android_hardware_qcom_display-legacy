@@ -95,8 +95,10 @@ static int hwc_prepare(hwc_composer_device_1 *dev, size_t numDisplays,
         ovutils::setExtType(ctx->mExtDisplay->getExternalDisplay());
     if (ctx->hdmi_pending == true) {
         if ((qdutils::MDPVersion::getInstance().getMDPVersion() >=
-            qdutils::MDP_V4_2) || (ctx->mOverlay->getState() !=
-                                  ovutils::OV_BYPASS_3_LAYER)) {
+            qdutils::MDP_V4_2) ||((ctx->mOverlay->getState() !=
+            ovutils::OV_BYPASS_3_LAYER) && (ctx->mOverlay->getState() !=
+            ovutils::OV_BYPASS_2_LAYER) && (ctx->mOverlay->getState() !=
+                                ovutils::OV_BYPASS_1_LAYER))) {
             ctx->mExtDisplay->processUEventOnline((const char*)ctx->mHDMIEvent);
             ctx->hdmi_pending = false;
         }
